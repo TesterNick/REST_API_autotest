@@ -3,7 +3,7 @@ import json
 import requests
 
 
-def get(link: str):
+def get(link: str) -> tuple[requests.Response, dict, dict]:
     # Requests adds header 'User-Agent': 'python-requests/2.26.0'.
     # Seems server don't want to work with automated requests
     # and returns 406 Not Acceptable.
