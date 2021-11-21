@@ -6,6 +6,7 @@ from classes.base_test import BaseTest
 from classes.methods import post
 
 
+@pytest.mark.POST
 class TestPostPositive(BaseTest):
 
     link = "http://dummy.restapiexample.com/api/v1/create"
