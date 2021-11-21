@@ -8,11 +8,10 @@ from classes.methods import post, parse_json
 
 @pytest.mark.POST
 @pytest.mark.negative
-class TestPostPositive(BaseTest):
+class TestPostWithoutData(BaseTest):
 
     link = "http://dummy.restapiexample.com/api/v1/create"
-    data = {"name": "test", "salary": 123, "age": 23}
-    full_response = post(link, data)
+    full_response = post(link)
     response_data = parse_json(full_response)
 
     def test_post_content_type_on_no_data(self):
