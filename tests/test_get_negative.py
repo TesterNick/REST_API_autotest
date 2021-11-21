@@ -14,8 +14,8 @@ class TestGetNegative(BaseTest):
     full_response = get(link)
     response_data = parse_json(full_response)
 
-    @pytest.mark.xfail(("Server returns html page, but Content-Type header "
-                        "contains application/json"))
+    @pytest.mark.xfail(reason=("Server returns html page, but Content-Type "
+                               "header contains application/json"))
     def test_get_content_type_on_not_found(self):
         self.check_content_type("text/html; charset=UTF-8")
 
