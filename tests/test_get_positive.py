@@ -3,7 +3,7 @@ import datetime
 import pytest
 
 from classes.base_test import BaseTest
-from classes.methods import get
+from classes.methods import get, parse_json
 
 
 @pytest.mark.GET
@@ -11,7 +11,9 @@ from classes.methods import get
 class TestGetPositive(BaseTest):
 
     link = "http://dummy.restapiexample.com/api/v1/employee/1"
-    full_response, response_data, employee_data = get(link)
+    full_response = get(link)
+    response_data = parse_json(full_response)
+    employee_data = response_data["data"]
 
     def test_get_content_type(self):
         self.check_content_type("application/json")

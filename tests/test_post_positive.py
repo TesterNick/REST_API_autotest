@@ -3,7 +3,7 @@ import datetime
 import pytest
 
 from classes.base_test import BaseTest
-from classes.methods import post
+from classes.methods import post, parse_json
 
 
 @pytest.mark.POST
@@ -12,7 +12,9 @@ class TestPostPositive(BaseTest):
 
     link = "http://dummy.restapiexample.com/api/v1/create"
     data = {"name": "test", "salary": 123, "age": 23}
-    full_response, response_data, employee_data = post(link, data)
+    full_response = post(link, data)
+    response_data = parse_json(full_response)
+    employee_data = response_data["data"]
 
     def test_post_content_type(self):
         self.check_content_type("application/json")

@@ -3,24 +3,22 @@ import json
 import requests
 
 
-def get(link: str) -> tuple[requests.Response, dict, dict]:
+def get(link: str) -> requests.Response:
     """
     Perform GET request and parse response.
 
     :param link: http address
     :type link: str
     :return: full response object, response data, and employee data
-    :rtype: tuple[requests.Response, dict, dict]
+    :rtype: requests.Response
     """
     # Requests adds header 'User-Agent': 'python-requests/2.26.0'.
     # Seems server don't want to work with automated requests
     # and returns 406 Not Acceptable.
-    full_response = requests.get(link, headers={"User-Agent": ""})
-    response_data, employee_data = parse_json(full_response)
-    return full_response, response_data, employee_data
+    return requests.get(link, headers={"User-Agent": ""})
 
 
-def post(link: str, data: dict = None) -> tuple[requests.Response, dict, dict]:
+def post(link: str, data: dict = None) -> requests.Response:
     """
     Perform POST request and parse response.
 
@@ -29,29 +27,25 @@ def post(link: str, data: dict = None) -> tuple[requests.Response, dict, dict]:
     :param data: payload for request
     :type data: dict
     :return: full response object, response data, and employee data
-    :rtype: tuple[requests.Response, dict, dict]
+    :rtype: requests.Response
     """
     # Requests adds header 'User-Agent': 'python-requests/2.26.0'.
     # Seems server don't want to work with automated requests
     # and returns 406 Not Acceptable.
-    full_response = requests.post(link, data=data, headers={"User-Agent": ""})
-    response_data, employee_data = parse_json(full_response)
-    return full_response, response_data, employee_data
+    return requests.post(link, data=data, headers={"User-Agent": ""})
 
 
-def parse_json(full_response: requests.Response) -> tuple[dict, dict]:
+def parse_json(full_response: requests.Response) -> dict:
     """
     Parse response object.
 
     :param full_response: response object
     :type full_response: requests.Response
     :return: parsed response data
-    :rtype: tuple[dict, dict]
+    :rtype: dict
     """
     try:
-        response_data = json.loads(full_response.text)
-        employee_data = response_data["data"]
-        return response_data, employee_data
+        return json.loads(full_response.text)
     except json.JSONDecodeError:
         # If server returned something unexpected we want to know
         # what happened.
