@@ -72,12 +72,14 @@ class BaseTest:
         assert "message" in self.response_data
         assert self.response_data["message"] == expected_message
 
-    def check_response_status(self) -> None:
+    def check_response_status(self, expected_status: str = "success") -> None:
         """
-        Check if "status" field of response data is "success".
+        Check if "status" field of response data is expected.
 
+        :param expected_status: expected status text
+        :type expected_status: str
         :return: None
         :rtype: NoneType
         """
         assert "status" in self.response_data
-        assert self.response_data["status"] == "success"
+        assert self.response_data["status"] == expected_status
