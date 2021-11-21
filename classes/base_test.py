@@ -12,6 +12,22 @@ class BaseTest:
         """
         assert list(self.full_response.cookies) == []
 
+    def check_response_headers(self) -> None:
+        """
+        Check if response headers are expected.
+
+        :return: None
+        :rtype: NoneType
+        """
+        exp = ['Alt-Svc', 'CF-Cache-Status', 'CF-RAY', 'Connection',
+               'Content-Encoding', 'Content-Type', 'Date', 'NEL', 'Report-To',
+               'Server', 'Transfer-Encoding', 'cache-control', 'display',
+               'expires', 'host-header', 'referrer-policy', 'response', 'vary',
+               'x-ezoic-cdn', 'x-middleton-display', 'x-middleton-response',
+               'x-origin-cache-control', 'x-ratelimit-limit',
+               'x-ratelimit-remaining', 'x-sol']
+        assert sorted(list(self.full_response.headers.keys())) == exp
+
     def check_http_status(self, expected_status: int) -> None:
         """
         Check if status code in response equals to expected one.

@@ -31,14 +31,7 @@ class TestPostPositive(BaseTest):
         assert self.employee_data["salary"] == 123
 
     def test_post_headers(self):
-        exp = ['Alt-Svc', 'CF-Cache-Status', 'CF-RAY', 'Connection',
-               'Content-Encoding', 'Content-Type', 'Date', 'NEL', 'Report-To',
-               'Server', 'Transfer-Encoding', 'cache-control', 'display',
-               'expires', 'host-header', 'referrer-policy', 'response', 'vary',
-               'x-ezoic-cdn', 'x-middleton-display', 'x-middleton-response',
-               'x-origin-cache-control', 'x-ratelimit-limit',
-               'x-ratelimit-remaining', 'x-sol']
-        assert sorted(list(self.full_response.headers.keys())) == exp
+        self.check_response_headers()
 
     def test_post_response_status_is_successful(self):
         self.check_response_status()
