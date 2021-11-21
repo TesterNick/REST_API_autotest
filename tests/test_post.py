@@ -16,6 +16,7 @@ class TestPostPositive(BaseTest):
     def test_post_cookies(self):
         self.check_cookies()
 
+    @pytest.mark.xfail(reason="Server returns string instead of number.")
     def test_post_employee_age(self):
         assert self.employee_data["age"] == 23
 
@@ -25,6 +26,7 @@ class TestPostPositive(BaseTest):
     def test_post_employee_name(self):
         assert self.employee_data["name"] == "test"
 
+    @pytest.mark.xfail(reason="Server returns string instead of number.")
     def test_post_employee_salary(self):
         assert self.employee_data["salary"] == 123
 
@@ -44,7 +46,7 @@ class TestPostPositive(BaseTest):
     def test_post_response_message_is_successful(self):
         self.check_response_message("Successfully! Record has been added.")
 
-    @pytest.mark.xfail(reason="Bug on the server.")
+    @pytest.mark.xfail(reason="Server returns 200 instead of 201.")
     def test_post_returns_successful_status_code(self):
         self.check_http_status(201)
 
