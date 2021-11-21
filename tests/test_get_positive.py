@@ -7,6 +7,7 @@ from classes.methods import get
 
 
 @pytest.mark.GET
+@pytest.mark.positive
 class TestGetPositive(BaseTest):
 
     link = "http://dummy.restapiexample.com/api/v1/employee/1"
