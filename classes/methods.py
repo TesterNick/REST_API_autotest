@@ -4,6 +4,14 @@ import requests
 
 
 def get(link: str) -> tuple[requests.Response, dict, dict]:
+    """
+    Perform GET request and parse response.
+
+    :param link: http address
+    :type link: str
+    :return: full response object, response data, and employee data
+    :rtype: tuple[requests.Response, dict, dict]
+    """
     # Requests adds header 'User-Agent': 'python-requests/2.26.0'.
     # Seems server don't want to work with automated requests
     # and returns 406 Not Acceptable.
@@ -13,6 +21,16 @@ def get(link: str) -> tuple[requests.Response, dict, dict]:
 
 
 def post(link: str, data: dict = None) -> tuple[requests.Response, dict, dict]:
+    """
+    Perform POST request and parse response.
+
+    :param link: http address
+    :type link: str
+    :param data: payload for request
+    :type data: dict
+    :return: full response object, response data, and employee data
+    :rtype: tuple[requests.Response, dict, dict]
+    """
     # Requests adds header 'User-Agent': 'python-requests/2.26.0'.
     # Seems server don't want to work with automated requests
     # and returns 406 Not Acceptable.
@@ -22,6 +40,14 @@ def post(link: str, data: dict = None) -> tuple[requests.Response, dict, dict]:
 
 
 def parse_json(full_response: requests.Response) -> tuple[dict, dict]:
+    """
+    Parse response object.
+
+    :param full_response: response object
+    :type full_response: requests.Response
+    :return: parsed response data
+    :rtype: tuple[dict, dict]
+    """
     try:
         response_data = json.loads(full_response.text)
         employee_data = response_data["data"]
