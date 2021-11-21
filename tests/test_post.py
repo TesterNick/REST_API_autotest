@@ -13,6 +13,9 @@ class TestPostPositive(BaseTest):
     data = {"name": "test", "salary": 123, "age": 23}
     full_response, response_data, employee_data = post(link, data)
 
+    def test_post_content_type(self):
+        self.check_content_type("application/json")
+
     def test_post_cookies(self):
         self.check_cookies()
 

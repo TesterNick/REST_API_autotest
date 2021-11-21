@@ -12,6 +12,17 @@ class BaseTest:
         """
         assert list(self.full_response.cookies) == []
 
+    def check_content_type(self, expected_type: str) -> None:
+        """
+        Check if header contains expected content type.
+
+        :param expected_type: expected content type
+        :type expected_type: str
+        :return: None
+        :rtype: NoneType
+        """
+        assert self.full_response.headers["Content-Type"] == expected_type
+
     def check_response_headers(self) -> None:
         """
         Check if response headers are expected.

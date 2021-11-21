@@ -12,6 +12,9 @@ class TestGet(BaseTest):
     link = "http://dummy.restapiexample.com/api/v1/employee/1"
     full_response, response_data, employee_data = get(link)
 
+    def test_get_content_type(self):
+        self.check_content_type("application/json")
+
     def test_get_cookies(self):
         self.check_cookies()
 
