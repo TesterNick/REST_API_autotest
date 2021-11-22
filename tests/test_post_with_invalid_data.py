@@ -11,7 +11,12 @@ from classes.methods import post, parse_json
 class TestPostWitInvalidData(BaseTest):
 
     link = "http://dummy.restapiexample.com/api/v1/create"
-    data = {"name": "", "salary": -123, "age": "null"}
+    # Actually, there should be separate tests for each valid field
+    # with invalid data as well as invalid field name (e. g. "id"),
+    # and the only difference between them is one incorrect field.
+    # All checks are the same. As long as there are no requirements,
+    # tests are combined.
+    data = {"id": 42, "name": "", "salary": -123, "age": "null"}
     full_response = post(link, data)
     response_data = parse_json(full_response)
 
