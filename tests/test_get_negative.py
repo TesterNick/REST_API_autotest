@@ -6,13 +6,16 @@ from classes.base_test import BaseTest
 from classes.methods import get, parse_json
 
 
+@pytest.fixture(scope="class", autouse=True)
+def set_up(request):
+    link = "http://dummy.restapiexample.com/api/v1/employee/1/employee_name"
+    request.cls.full_response = get(link)
+    request.cls.response_data = parse_json(request.cls.full_response)
+
+
 @pytest.mark.GET
 @pytest.mark.negative
 class TestGetNegative(BaseTest):
-
-    link = "http://dummy.restapiexample.com/api/v1/employee/1/employee_name"
-    full_response = get(link)
-    response_data = parse_json(full_response)
 
     @pytest.mark.xfail(reason=("Server returns html page, but Content-Type "
                                "header contains application/json"))

@@ -6,10 +6,8 @@ from classes.base_test import BaseTest
 from classes.methods import post, parse_json
 
 
-@pytest.mark.POST
-@pytest.mark.negative
-class TestPostWitInvalidData(BaseTest):
-
+@pytest.fixture(scope="class", autouse=True)
+def set_up(request):
     link = "http://dummy.restapiexample.com/api/v1/create"
     # Actually, there should be separate tests for each valid field
     # with invalid data as well as invalid field name (e. g. "id"),
@@ -17,8 +15,13 @@ class TestPostWitInvalidData(BaseTest):
     # All checks are the same. As long as there are no requirements,
     # tests are combined.
     data = {"id": 42, "name": "", "salary": -123, "age": "null"}
-    full_response = post(link, data)
-    response_data = parse_json(full_response)
+    request.cls.full_response = post(link, data)
+    request.cls.response_data = parse_json(request.cls.full_response)
+
+
+@pytest.mark.POST
+@pytest.mark.negative
+class TestPostWitInvalidData(BaseTest):
 
     def test_post_content_type_on_invalid_data(self):
         self.check_content_type("application/json")
