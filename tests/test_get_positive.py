@@ -6,14 +6,17 @@ from classes.base_test import BaseTest
 from classes.methods import get, parse_json
 
 
+@pytest.fixture(scope="class", autouse=True)
+def set_up(request):
+    link = "http://dummy.restapiexample.com/api/v1/employee/1"
+    request.cls.full_response = get(link)
+    request.cls.response_data = parse_json(request.cls.full_response)
+    request.cls.employee_data = request.cls.response_data["data"]
+
+
 @pytest.mark.GET
 @pytest.mark.positive
 class TestGetPositive(BaseTest):
-
-    link = "http://dummy.restapiexample.com/api/v1/employee/1"
-    full_response = get(link)
-    response_data = parse_json(full_response)
-    employee_data = response_data["data"]
 
     def test_get_content_type(self):
         self.check_content_type("application/json")

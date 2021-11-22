@@ -6,13 +6,16 @@ from classes.base_test import BaseTest
 from classes.methods import post, parse_json
 
 
+@pytest.fixture(scope="class", autouse=True)
+def set_up(request):
+    link = "http://dummy.restapiexample.com/api/v1/create"
+    request.cls.full_response = post(link)
+    request.cls.response_data = parse_json(request.cls.full_response)
+
+
 @pytest.mark.POST
 @pytest.mark.negative
 class TestPostWithoutData(BaseTest):
-
-    link = "http://dummy.restapiexample.com/api/v1/create"
-    full_response = post(link)
-    response_data = parse_json(full_response)
 
     def test_post_content_type_on_no_data(self):
         self.check_content_type("application/json")
